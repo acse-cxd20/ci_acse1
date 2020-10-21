@@ -25,7 +25,8 @@ jobs:
       matrix:
         name: [
           python36-ubuntu1804,
-          python38-ubuntu2004
+          python38-ubuntu2004,
+          python37-macOS
         ]
         include:
         - name: python36-ubuntu1804
@@ -36,6 +37,10 @@ jobs:
           python-version: 3.8
           os: ubuntu-20.04
 
+        - name: python37-macOS
+          python-version: 3.7
+          os: macos-latest
+
     steps:
     - name: Checkout simple_functions
       uses: actions/checkout@v2
@@ -45,12 +50,21 @@ jobs:
         echo "::set-env name=TESTS::tests/"
 
     - name: Install dependencies
-      if: ${{ matrix.os }} != 'macOS'
+      if: ${{ matrix.os }} != 'macos-latest'
       run: |
         sudo apt-get install python3-setuptools -y
         pip3 install --upgrade pip
         pip3 install -e .
         pip3 install -r requirements.txt
+    
+    - name: Mac install
+      if: ${{ matrix.os }} == 'macos-latest'
+      run: |
+        wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | python
+        pip3 install --upgrade pip
+        pip3 install -e .
+        pip3 install -r requirements.txt
+
 
     - name: Set a run prefix
       run: |
