@@ -10,4 +10,3 @@ class TestSin(object):
         x = 2*np.pi
         sin_approx = my_sin(x, 100)
         assert np.isclose(sin_approx, np.sin(x), atol=1.0e-12)
-        
