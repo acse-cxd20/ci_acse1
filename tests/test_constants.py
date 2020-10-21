@@ -1,3 +1,5 @@
+import pytest
+
 import numpy as np
 
 from simple_functions import pi
