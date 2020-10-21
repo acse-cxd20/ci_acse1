@@ -20,14 +20,22 @@ jobs:
     
     strategy:
     # Prevents the whole build from stopping if one test fails
+      fail-fast: false
+
       matrix:
         name: [
           python36-ubuntu1804
+          python38-ubuntu2004
         ]
         include:
         - name: python36-ubuntu1804
           python-version: 3.6
           os: ubuntu-18.04
+
+        - name: python38-ubuntu2004
+          python-version: 3.8
+          os: ubuntu-20.04
+
     steps:
     - name: Checkout simple_functions
       uses: actions/checkout@v2
@@ -37,6 +45,7 @@ jobs:
         echo "::set-env name=TESTS::tests/"
 
     - name: Install dependencies
+      if: ${{ matrix.os }} != 'macOS'
       run: |
         sudo apt-get install python3-setuptools -y
         pip3 install --upgrade pip
