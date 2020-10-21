@@ -60,7 +60,7 @@ jobs:
     - name: Mac install
       if: matrix.os == 'macos-latest'
       run: |
-        wget https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | python
+        curl https://bitbucket.org/pypa/setuptools/raw/bootstrap/ez_setup.py -O - | python
         pip3 install --upgrade pip
         pip3 install -e .
         pip3 install -r requirements.txt
