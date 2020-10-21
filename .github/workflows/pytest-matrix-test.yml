@@ -24,7 +24,7 @@ jobs:
 
       matrix:
         name: [
-          python36-ubuntu1804
+          python36-ubuntu1804,
           python38-ubuntu2004
         ]
         include:
